@@ -3,7 +3,7 @@
 namespace NoobNoob.eWAN.Application.Contracts.Data;
 
 /// <summary>
-/// Simplified definition of <see cref="NoobNoob.eWAN.Core.Entities.Subject"/>
+/// Simplified definition of <see cref="NoobNoob.eWAN.Core.Entities.Subject"/>.
 /// </summary>
 public class SubjectDto : IAuditableEntity
 {
@@ -12,6 +12,9 @@ public class SubjectDto : IAuditableEntity
     /// </summary>
     public Guid Id { get; init; } = default!;
 
+    /// <summary>
+    /// Backing Id for Cosmos Db
+    /// </summary>
     public Guid Guid { get; init; } = Guid.NewGuid();
     
     /// <summary>
