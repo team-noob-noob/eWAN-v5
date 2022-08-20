@@ -3,7 +3,7 @@
 namespace NoobNoob.eWAN.Application.Contracts.Data;
 
 /// <summary>
-/// Simplified definition of <see cref="Subject"/>
+/// Simplified definition of <see cref="NoobNoob.eWAN.Core.Entities.Subject"/>
 /// </summary>
 public class SubjectDto : IAuditableEntity
 {
