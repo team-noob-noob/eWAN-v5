@@ -1,4 +1,5 @@
 using FastEndpoints;
+using Microsoft.AspNetCore.Authorization;
 using NoobNoob.eWAN.Application.Contracts.Requests;
 using NoobNoob.eWAN.Application.Contracts.Responses;
 using NoobNoob.eWAN.Application.Interfaces.Repositories;
@@ -7,6 +8,7 @@ using NoobNoob.eWAN.Application.Mappings;
 
 namespace NoobNoob.eWAN.WebApis.Endpoints;
 
+[HttpGet("/subjects"), AllowAnonymous]
 public class GetSubjectsByQueryEndpoint : Endpoint<SubjectQueryRequest, SubjectsResponse>
 {
     public GetSubjectsByQueryEndpoint(ISubjectService subjectService)
