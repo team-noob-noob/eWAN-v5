@@ -12,41 +12,47 @@ public interface ISubjectRepository
     /// Adds the specified subject into the repository.
     /// </summary>
     /// <param name="subject">The subject that needs to be added</param>
+    /// <param name="cancellationToken">Optional, Cancellation Token</param>
     /// <returns>True if the subject is added successfully, false otherwise</returns>
-    Task<bool> AddSubject(SubjectDto subject);
-    
+    Task<bool> AddSubjectAsync(SubjectDto subject, CancellationToken cancellationToken = default(CancellationToken));
+
     /// <summary>
     /// Updates the subject 
     /// </summary>
     /// <param name="subject">The updated subject</param>
+    /// <param name="cancellationToken"></param>
     /// <returns>True if the subject is updated, false otherwise</returns>
-    Task<bool> UpdateSubject(SubjectDto subject);
-    
+    Task<bool> UpdateSubjectAsync(SubjectDto subject, CancellationToken cancellationToken = default(CancellationToken));
+
     /// <summary>
     /// Marks the subject as deleted
     /// </summary>
     /// <param name="subject">The subject that needs to be deleted</param>
+    /// <param name="cancellationToken">Optional, Cancellation Token</param>
     /// <returns>True if the subject is deleted, false otherwise</returns>
-    Task<bool> DeleteSubject(SubjectDto subject);
-    
+    Task<bool> DeleteSubjectAsync(SubjectDto subject, CancellationToken cancellationToken = default(CancellationToken));
+
     /// <summary>
     /// Fetches a subject from the repository by its id.
     /// </summary>
     /// <param name="id">The id of the subject</param>
+    /// <param name="cancellationToken">Optional, Cancellation Token</param>
     /// <returns>The Subject if there's match</returns>
-    Task<SubjectDto?> GetById(Guid id);
-    
+    Task<SubjectDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken));
+
     /// <summary>
     /// Fetches a subject from the repository by its code.
     /// </summary>
     /// <param name="code">The short name of the subject</param>
+    /// <param name="cancellationToken">Optional, Cancellation Token</param>
     /// <returns>The Subject if there's a match</returns>
-    Task<SubjectDto?> GetByCode(string code);
-    
+    Task<SubjectDto?> GetByCodeAsync(string code, CancellationToken cancellationToken = default(CancellationToken));
+
     /// <summary>
     /// Fetches a subject from the repository by its name.
     /// </summary>
     /// <param name="title">The title of the subject</param>
+    /// <param name="cancellationToken">Optional, Cancellation Token</param>
     /// <returns>The Subject if there's a match</returns>
-    Task<SubjectDto?> GetByTitle(string title);
+    Task<SubjectDto?> GetByTitleAsync(string title, CancellationToken cancellationToken = default(CancellationToken));
 }

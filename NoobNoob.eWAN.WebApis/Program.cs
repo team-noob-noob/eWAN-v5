@@ -4,13 +4,17 @@ using NoobNoob.eWAN.Application.Contracts.Responses;
 using NoobNoob.eWAN.Application.Interfaces.Repositories;
 using NoobNoob.eWAN.Application.Interfaces.Services;
 using NoobNoob.eWAN.Application.Services;
-using NoobNoob.eWAN.Infrastructure.Data.InMemory.Repositories;
+using NoobNoob.eWAN.Infrastructure.Data.EfCoreCosmos;
+using NoobNoob.eWAN.Infrastructure.Data.EfCoreCosmos.Repositories;
+using NoobNoob.eWAN.Infrastructure.Data.EfCoreCosmos.Services;
 using NoobNoob.eWAN.WebApis.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddFastEndpoints();
 builder.Services.AddSwaggerDoc();
+builder.Services.AddDbContext<EwanCosmosDbContext>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddSingleton<ISubjectRepository, SubjectRepository>();
 builder.Services.AddSingleton<ISubjectService, SubjectService>();
 
