@@ -56,5 +56,14 @@ public interface ISubjectService
     /// <param name="title">The title of the subject</param>
     /// <param name="cancellationToken">Optional, Cancellation Token</param>
     /// <returns>Either returns null or the subject that matches the code</returns>
-    Task<Subject?> GetSubjectByTitle(string title, CancellationToken cancellationToken = default(CancellationToken));
+    Task<Subject?> GetSubjectByTitleAsync(string title,
+        CancellationToken cancellationToken = default(CancellationToken));
+    
+    /// <summary>
+    /// Get subjects by query
+    /// </summary>
+    /// <param name="query">The filters and ordering required</param>
+    /// <param name="cancellationToken">Optional, Cancellation Token</param>
+    /// <returns>A list of subjects that matches the given query</returns>
+    Task<IEnumerable<Subject>> GetSubjectsByQueryAsync(SubjectQueryRequest query, CancellationToken cancellationToken = default(CancellationToken));
 }

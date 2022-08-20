@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Dynamic.Core;
 using NoobNoob.eWAN.Application.Contracts.Data;
+using NoobNoob.eWAN.Application.Contracts.Requests.Common;
+using NoobNoob.eWAN.Application.Enums;
 using NoobNoob.eWAN.Application.Interfaces.Repositories;
 
 namespace NoobNoob.eWAN.Infrastructure.Data.EfCoreCosmos.Repositories;
@@ -33,4 +36,17 @@ public class SubjectRepository : ISubjectRepository
 
     public async Task<SubjectDto?> GetByTitleAsync(string title, CancellationToken cancellationToken = default(CancellationToken))
         => await _dbContext.Subjects.FirstOrDefaultAsync(x => x.Title == title, cancellationToken: cancellationToken);
+
+    public async Task<IEnumerable<SubjectDto>> GetByQueryAsync(Query query,
+        CancellationToken cancellationToken = default(CancellationToken))
+    {
+        var orderingQuery = query.SortDirection == SortDirection.Ascending ? query.SortBy : $"{query.SortBy} desc";
+        var orderedSubjects = _dbContext.Subjects.OrderBy(orderingQuery);
+
+        if (query.Title is null)
+            return orderedSubjects.Skip((query.PageNumber - 1) * query.PageSize).Take(query.PageSize);
+        
+        var filteredByTitle = orderedSubjects.Where(x => x.Title.Contains(query.Title));
+        return filteredByTitle.Skip((query.PageNumber - 1) * query.PageSize).Take(query.PageSize);
+    }
 }

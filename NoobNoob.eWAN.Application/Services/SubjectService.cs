@@ -105,4 +105,12 @@ public class SubjectService : ISubjectService
         var subjectDto = await _subjectRepository.GetByTitleAsync(title, cancellationToken);
         return subjectDto?.ToSubject();
     }
+
+    /// <inheritdoc cref="ISubjectService.GetSubjectsByQueryAsync"/>
+    public async Task<IEnumerable<Subject>> GetSubjectsByQueryAsync(SubjectQueryRequest query,
+        CancellationToken cancellationToken = default(CancellationToken))
+    {
+        var subjects = await _subjectRepository.GetByQueryAsync(query, cancellationToken);
+        return subjects.Select(s => s.ToSubject());
+    }
 }

@@ -1,4 +1,6 @@
 ﻿using NoobNoob.eWAN.Application.Contracts.Data;
+using NoobNoob.eWAN.Application.Contracts.Requests;
+using NoobNoob.eWAN.Application.Contracts.Requests.Common;
 using NoobNoob.eWAN.Core.Entities;
 
 namespace NoobNoob.eWAN.Application.Interfaces.Repositories;
@@ -55,4 +57,13 @@ public interface ISubjectRepository
     /// <param name="cancellationToken">Optional, Cancellation Token</param>
     /// <returns>The Subject if there's a match</returns>
     Task<SubjectDto?> GetByTitleAsync(string title, CancellationToken cancellationToken = default(CancellationToken));
+    
+    /// <summary>
+    /// Fetches a list subjects based on the given query
+    /// </summary>
+    /// <param name="query">The filters and ordering that needs to be followed</param>
+    /// <param name="cancellationToken">Optional, Cancellation token</param>
+    /// <returns>The list of subjects that matches the given query</returns>
+    Task<IEnumerable<SubjectDto>> GetByQueryAsync(Query query,
+        CancellationToken cancellationToken = default(CancellationToken));
 }
