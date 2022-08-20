@@ -12,6 +12,8 @@ public class SubjectDto : IAuditableEntity
     /// </summary>
     public Guid Id { get; init; } = default!;
 
+    public Guid Guid { get; init; } = Guid.NewGuid();
+    
     /// <summary>
     /// Short of the Subject
     /// </summary>
