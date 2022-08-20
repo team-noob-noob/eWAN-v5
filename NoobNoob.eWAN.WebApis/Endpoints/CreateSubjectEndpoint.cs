@@ -21,7 +21,7 @@ public class CreateSubjectEndpoint : Endpoint<CreateSubjectRequest, CreateSubjec
     {
         var subject = req.ToSubject();
         
-        await _subjectService.CreateSubject(subject, ct);
+        await _subjectService.CreateSubjectAsync(subject, ct);
 
         var response = subject.ToCreateSubjectResponse();
 

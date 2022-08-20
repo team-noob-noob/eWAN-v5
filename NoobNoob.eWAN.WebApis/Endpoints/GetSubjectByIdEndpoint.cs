@@ -21,7 +21,7 @@ public class GetSubjectByIdEndpoint : Endpoint<GetSubjectByIdRequest, SubjectDto
 
     public override async Task HandleAsync(GetSubjectByIdRequest req, CancellationToken ct)
     {
-        var subject = await _subjectService.GetSubjectById(SubjectId.From(req.Id), ct);
+        var subject = await _subjectService.GetSubjectByIdAsync(SubjectId.From(req.Id), ct);
 
         if (subject is null)
         {
