@@ -40,13 +40,13 @@ public class SubjectRepository : ISubjectRepository
     public async Task<IEnumerable<SubjectDto>> GetByQueryAsync(Query query,
         CancellationToken cancellationToken = default(CancellationToken))
     {
-        var orderingQuery = query.SortDirection == SortDirection.Ascending ? query.SortBy : $"{query.SortBy} desc";
+        var orderingQuery = query.SortOrder == SortDirection.Ascending ? query.SortBy : $"{query.SortBy} desc";
         var orderedSubjects = _dbContext.Subjects.OrderBy(orderingQuery);
 
         if (query.Title is null)
-            return orderedSubjects.Skip((query.PageNumber - 1) * query.PageSize).Take(query.PageSize);
+            return orderedSubjects.Skip((query.PageNumber.Value - 1) * query.PageSize.Value).Take(query.PageSize.Value);
         
         var filteredByTitle = orderedSubjects.Where(x => x.Title.Contains(query.Title));
-        return filteredByTitle.Skip((query.PageNumber - 1) * query.PageSize).Take(query.PageSize);
+        return filteredByTitle.Skip((query.PageNumber.Value - 1) * query.PageSize.Value).Take(query.PageSize.Value);
     }
 }
