@@ -49,12 +49,5 @@ public interface ISubjectService
     /// </summary>
     /// <param name="title">The title of the subject</param>
     /// <returns>Either returns null or the subject that matches the code</returns>
-    Task<Subject?> GetSubjectByTitle(string title);
-    
-    /// <summary>
-    /// Get subjects by their title using a search query
-    /// </summary>
-    /// <param name="title">The subject's title</param>
-    /// <returns>The list of subjects with a similar title</returns>
-    Task<List<Subject>> GetSubjectsByTitle(string title);
+    Task<Subject?> GetSubjectByTitle(string title, CancellationToken cancellationToken = default(CancellationToken));
 }

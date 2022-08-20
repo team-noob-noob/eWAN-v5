@@ -86,10 +86,4 @@ public class SubjectService : ISubjectService
         var subjectDto = await _subjectRepository.GetByTitle(title);
         return subjectDto?.ToSubject();
     }
-    
-    /// <inheritdoc cref="ISubjectService.GetSubjectsByTitle"/>
-    public async Task<List<Subject>> GetSubjectsByTitle(string title)
-    {
-        return new List<Subject>();
-    }
 }
