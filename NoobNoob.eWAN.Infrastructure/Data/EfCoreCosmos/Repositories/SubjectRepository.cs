@@ -26,7 +26,7 @@ public class SubjectRepository : ISubjectRepository
         => _dbContext.Subjects.Remove(subject).State == EntityState.Deleted;
 
     public async Task<SubjectDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken))
-        => await _dbContext.Subjects.FindAsync(id);
+        => await _dbContext.Subjects.FindAsync(id, cancellationToken);
 
     public async Task<SubjectDto?> GetByCodeAsync(string code, CancellationToken cancellationToken = default(CancellationToken))
         => await _dbContext.Subjects.FirstOrDefaultAsync(x => x.Code == code, cancellationToken: cancellationToken);
