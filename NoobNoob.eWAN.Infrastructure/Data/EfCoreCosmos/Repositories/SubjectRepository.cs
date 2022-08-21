@@ -29,19 +29,19 @@ public class SubjectRepository : ISubjectRepository
         => _dbContext.Subjects.Remove(subject).State == EntityState.Deleted;
 
     public async Task<SubjectDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default(CancellationToken))
-        => await _dbContext.Subjects.FindAsync(id, cancellationToken);
+        => await _dbContext.Subjects.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 
     public async Task<SubjectDto?> GetByCodeAsync(string code, CancellationToken cancellationToken = default(CancellationToken))
-        => await _dbContext.Subjects.FirstOrDefaultAsync(x => x.Code == code, cancellationToken: cancellationToken);
+        => await _dbContext.Subjects.AsNoTracking().FirstOrDefaultAsync(x => x.Code == code, cancellationToken: cancellationToken);
 
     public async Task<SubjectDto?> GetByTitleAsync(string title, CancellationToken cancellationToken = default(CancellationToken))
-        => await _dbContext.Subjects.FirstOrDefaultAsync(x => x.Title == title, cancellationToken: cancellationToken);
+        => await _dbContext.Subjects.AsNoTracking().FirstOrDefaultAsync(x => x.Title == title, cancellationToken: cancellationToken);
 
     public async Task<IEnumerable<SubjectDto>> GetByQueryAsync(Query query,
         CancellationToken cancellationToken = default(CancellationToken))
     {
         var orderingQuery = query.SortOrder == SortDirection.Ascending ? query.SortBy : $"{query.SortBy} desc";
-        var orderedSubjects = _dbContext.Subjects.OrderBy(orderingQuery);
+        var orderedSubjects = _dbContext.Subjects.AsNoTracking().OrderBy(orderingQuery);
 
         if (query.Title is null)
             return orderedSubjects.Skip((query.PageNumber.Value - 1) * query.PageSize.Value).Take(query.PageSize.Value);

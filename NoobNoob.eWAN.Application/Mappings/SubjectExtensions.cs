@@ -85,3 +85,18 @@ public static class CreateSubjectRequestExtensions
             Description = MarkdownString.From(subject.Description),
         };
 }
+
+public static class UpdateSubjectRequestExtensions
+{
+    public static Subject ToSubject(this UpdateSubjectRequest subject, Subject existingSubject)
+        => new()
+        {
+            Id = existingSubject.Id,
+            Code = subject.Code ?? existingSubject.Code,
+            Title = subject.Title ?? existingSubject.Title,
+            Description = subject.Description is not null ? MarkdownString.From(subject.Description) : existingSubject.Description,
+            CreatedAt = existingSubject.CreatedAt,
+            UpdatedAt = DateTime.Now,
+            DeletedAt = existingSubject.DeletedAt,
+        };
+}
