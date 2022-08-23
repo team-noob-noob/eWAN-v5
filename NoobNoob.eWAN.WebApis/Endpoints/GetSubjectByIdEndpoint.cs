@@ -8,7 +8,7 @@ using NoobNoob.eWAN.Core.ValueObjects;
 
 namespace NoobNoob.eWAN.WebApis.Endpoints;
 
-[HttpGet("/subjects/FindById/{id:guid}"), AllowAnonymous]
+[HttpGet("/subjects/FindById/{Id}"), AllowAnonymous]
 public class GetSubjectByIdEndpoint : Endpoint<GetSubjectByIdRequest, SubjectDto>
 {
     public GetSubjectByIdEndpoint(ISubjectService subjectService)
