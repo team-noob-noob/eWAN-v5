@@ -8,7 +8,7 @@ using NoobNoob.eWAN.Core.ValueObjects;
 
 namespace NoobNoob.eWAN.WebApis.Endpoints;
 
-[HttpGet("/subjects/FindById/{Id}"), AllowAnonymous]
+[HttpGet("/subjects/{Id}"), AllowAnonymous]
 public class GetSubjectByIdEndpoint : Endpoint<GetSubjectByIdRequest, SubjectDto>
 {
     public GetSubjectByIdEndpoint(ISubjectService subjectService)
@@ -17,8 +17,7 @@ public class GetSubjectByIdEndpoint : Endpoint<GetSubjectByIdRequest, SubjectDto
     }
 
     private readonly ISubjectService _subjectService;
-
-
+    
     public override async Task HandleAsync(GetSubjectByIdRequest req, CancellationToken ct)
     {
         var subject = await _subjectService.GetSubjectByIdAsync(SubjectId.From(req.Id), ct);
