@@ -8,7 +8,7 @@ using NoobNoob.eWAN.Core.ValueObjects;
 
 namespace NoobNoob.eWAN.WebApis.Endpoints;
 
-[HttpPut("subjects/{Id}"), AllowAnonymous]
+[HttpPut("subjects/{Id}")]
 public class UpdateSubjectEndpoint : Endpoint<UpdateSubjectRequest, SubjectDto>
 {
     public UpdateSubjectEndpoint(ISubjectService subjectService)

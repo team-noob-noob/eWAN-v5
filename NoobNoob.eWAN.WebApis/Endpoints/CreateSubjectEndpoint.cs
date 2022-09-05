@@ -7,7 +7,7 @@ using NoobNoob.eWAN.Application.Mappings;
 
 namespace NoobNoob.eWAN.WebApis.Endpoints;
 
-[HttpPost("/subjects"), AllowAnonymous]
+[HttpPost("/subjects")]
 public class CreateSubjectEndpoint : Endpoint<CreateSubjectRequest, CreateSubjectResponse>
 {
     public CreateSubjectEndpoint(ISubjectService subjectService)

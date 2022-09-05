@@ -7,7 +7,7 @@ using NoobNoob.eWAN.Core.ValueObjects;
 
 namespace NoobNoob.eWAN.WebApis.Endpoints;
 
-[HttpDelete("/subjects/{Id}"), AllowAnonymous]
+[HttpDelete("/subjects/{Id}")]
 public class DeleteSubjectByIdEndpoint : Endpoint<DeleteSubjectByIdRequest, SubjectDto>
 {
     public DeleteSubjectByIdEndpoint(ISubjectService subjectService)
