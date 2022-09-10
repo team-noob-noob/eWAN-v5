@@ -58,10 +58,13 @@ builder.Services
     .AddAuthentication("Bearer")
     .AddJwtBearer("Bearer", options =>
     {
-        options.Authority = "https://localhost:5002";
+        
         options.Audience = "APIS";
 #if DEBUG
+        options.Authority = "https://localhost:5002";
         options.RequireHttpsMetadata = false;
+#else
+        options.Authority = Environment.GetEnvironmentVariable("IDENTITY_AUTHORIZATION_URL");
 #endif
     });
 
