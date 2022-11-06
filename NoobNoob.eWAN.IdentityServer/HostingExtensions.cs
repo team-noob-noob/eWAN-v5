@@ -6,7 +6,6 @@ using NoobNoob.eWAN.IdentityServer.Pages.Admin.IdentityScopes;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
-using Serilog;
 
 namespace NoobNoob.eWAN.IdentityServer;
 
@@ -87,8 +86,6 @@ internal static class HostingExtensions
     {
         app.UseCors();
         
-        app.UseSerilogRequestLogging();
-
         if (app.Environment.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
