@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Serilog;
+using Microsoft.Extensions.Options;
 
 namespace NoobNoob.eWAN.IdentityServer;
 
@@ -30,9 +31,9 @@ internal static class HostingExtensions
 #endif
             });
         });
-        
 
-        var connectionString = Environment.GetEnvironmentVariable("MYSQLCONNSTR_localdb") ?? "Server=localhost;Database=ewan_identity;User=root;Password=root;";
+
+        var connectionString = Environment.GetEnvironmentVariable("AZURE_COSMOS_CONNECTIONSTRING") ?? "AccountEndpoint=https://localhost:8081/;AccountKey=C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
 
         var isBuilder = builder.Services
             .AddIdentityServer(options =>
@@ -49,25 +50,21 @@ internal static class HostingExtensions
             .AddConfigurationStore(options =>
             {
                 options.ConfigureDbContext = b =>
-                    b.UseMySql(connectionString, 
-                        ServerVersion.AutoDetect(connectionString),
-                        dbOpts => dbOpts.MigrationsAssembly(typeof(Program).Assembly.FullName));
+                    b.UseCosmos(connectionString, "ewan");
             })
             .AddConfigurationStoreCache()
             .AddOperationalStore(options =>
             {
                 options.ConfigureDbContext = b =>
-                    b.UseMySql(connectionString, 
-                        ServerVersion.AutoDetect(connectionString),
-                        dbOpts => dbOpts.MigrationsAssembly(typeof(Program).Assembly.FullName));
-                    
+                    b.UseCosmos(connectionString, "ewan");
+                
                 // this enables automatic token cleanup. this is optional.
                 options.EnableTokenCleanup = true;
                 options.RemoveConsumedTokens = true;
             });
 
         builder.Services.AddAuthentication();
-        
+
         builder.Services.AddAuthorization(options =>
             options.AddPolicy("admin",
                 policy => policy.RequireClaim("sub", "1"))
@@ -79,14 +76,14 @@ internal static class HostingExtensions
         builder.Services.AddTransient<ClientRepository>();
         builder.Services.AddTransient<IdentityScopeRepository>();
         builder.Services.AddTransient<ApiScopeRepository>();
-        
+
         return builder.Build();
     }
 
     public static WebApplication ConfigurePipeline(this WebApplication app)
     {
         app.UseCors();
-        
+
         app.UseSerilogRequestLogging();
 
         if (app.Environment.IsDevelopment())
