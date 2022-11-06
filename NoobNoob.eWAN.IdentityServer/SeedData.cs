@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Serilog;
 using Duende.IdentityServer.EntityFramework.DbContexts;
 using Duende.IdentityServer.EntityFramework.Mappers;
 using Duende.IdentityServer.Models;
@@ -24,7 +23,7 @@ public class SeedData
     {
         if (!context.Clients.Any())
         {
-            Log.Debug("Clients being populated");
+            Console.WriteLine("Clients being populated");
             foreach (var client in Config.Clients.ToList())
             {
                 context.Clients.Add(client.ToEntity());
@@ -34,12 +33,12 @@ public class SeedData
         }
         else
         {
-            Log.Debug("Clients already populated");
+            Console.WriteLine("Clients already populated");
         }
 
         if (!context.IdentityResources.Any())
         {
-            Log.Debug("IdentityResources being populated");
+            Console.WriteLine("IdentityResources being populated");
             foreach (var resource in Config.IdentityResources.ToList())
             {
                 context.IdentityResources.Add(resource.ToEntity());
@@ -49,12 +48,12 @@ public class SeedData
         }
         else
         {
-            Log.Debug("IdentityResources already populated");
+            Console.WriteLine("IdentityResources already populated");
         }
 
         if (!context.ApiScopes.Any())
         {
-            Log.Debug("ApiScopes being populated");
+            Console.WriteLine("ApiScopes being populated");
             foreach (var resource in Config.ApiScopes.ToList())
             {
                 context.ApiScopes.Add(resource.ToEntity());
@@ -64,12 +63,12 @@ public class SeedData
         }
         else
         {
-            Log.Debug("ApiScopes already populated");
+            Console.WriteLine("ApiScopes already populated");
         }
 
         if (!context.ApiResources.Any())
         {
-            Log.Debug("ApiResources being populated");
+            Console.WriteLine("ApiResources being populated");
             foreach (var resource in Config.ApiResources.ToList())
             {
                 context.ApiResources.Add(resource.ToEntity());
@@ -79,7 +78,7 @@ public class SeedData
         }
         else
         {
-            Log.Debug("ApiResources already populated");
+            Console.WriteLine("ApiResources already populated");
         }
     }
 }
