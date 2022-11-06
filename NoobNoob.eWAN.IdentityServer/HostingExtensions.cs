@@ -32,7 +32,7 @@ internal static class HostingExtensions
         });
         
 
-        var connectionString = Environment.GetEnvironmentVariable("MYSQLCONNSTR_localdb") ?? "Server=localhost;Database=ewan_identity;User=root;Password=root;";
+        var connectionString = Environment.GetEnvironmentVariable("WEBSITE_MYSQL_CONNSTR") ?? "Server=localhost;Database=ewan_identity;User=root;Password=root;";
 
         var isBuilder = builder.Services
             .AddIdentityServer(options =>
