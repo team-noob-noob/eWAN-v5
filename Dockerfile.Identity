@@ -1,0 +1,11 @@
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /source
+COPY . .
+RUN dotnet publish -c Release -o publishedApp 
+
+
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
+WORKDIR /app
+COPY --from=build /source/publishedApp ./
+ENTRYPOINT ["dotnet", "NoobNoob.eWAN.IdentityServer.dll"]
+EXPOSE 80
