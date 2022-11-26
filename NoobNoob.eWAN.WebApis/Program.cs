@@ -4,10 +4,9 @@ using NoobNoob.eWAN.Application.Contracts.Responses;
 using NoobNoob.eWAN.Application.Interfaces.Repositories;
 using NoobNoob.eWAN.Application.Interfaces.Services;
 using NoobNoob.eWAN.Application.Services;
-using NoobNoob.eWAN.Infrastructure.Data.EfCoreCosmos;
-using NoobNoob.eWAN.Infrastructure.Data.EfCoreCosmos.Repositories;
-using NoobNoob.eWAN.Infrastructure.Data.EfCoreCosmos.Services;
 using NoobNoob.eWAN.Infrastructure.Data.MySql;
+using NoobNoob.eWAN.Infrastructure.Data.MySql.Repositories;
+using NoobNoob.eWAN.Infrastructure.Data.MySql.Services;
 using NoobNoob.eWAN.WebApis.Middlewares;
 using NSwag;
 using NSwag.AspNetCore;
@@ -51,9 +50,9 @@ builder.Services.AddSwaggerDoc(options =>
     });
 }, addJWTBearerAuth: false);
 builder.Services.AddDbContext<EwanMysqlDbContext>();
-builder.Services.AddSingleton<IUnitOfWork, UnitOfWork>();
-builder.Services.AddSingleton<ISubjectRepository, SubjectRepository>();
-builder.Services.AddSingleton<ISubjectService, SubjectService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
+builder.Services.AddScoped<ISubjectService, SubjectService>();
 builder.Services.AddAuthorization();
 builder.Services
     .AddAuthentication("Bearer")
